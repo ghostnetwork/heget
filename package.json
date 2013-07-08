@@ -1,0 +1,14 @@
+{
+  "name": "Heget",
+  "version": "0.1.0",
+  "description": "fog of war",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive test"
+  },
+  "dependencies": {
+    "util": "0.4.9"
+  },
+  "author": "@codeswimmer",
+  "license": "MIT"
+}
