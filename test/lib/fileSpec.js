@@ -14,13 +14,14 @@ describe('File', function(){
 
   describe('#readContents', function(){
   
-    it('should be able to read the contents of a file', function(done){
-      File.on('fileContentsAvailable', function(info) {
+    it('should receive an event when the contents of a file have finished being read', function(done){
+      File.on('readFileContentsDone', function(info) {
         assert(info !== null);
         done();
       });
 
       File.readContents(fileToRead);
+      // Test will timeout if the event handler isn't called
     });
   });
   

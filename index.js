@@ -123,8 +123,8 @@ var parser = require('xml2js').parseString;
     });
   }
 
-  Heget.create = function(pathToScan) {
-    return new Heget(pathToScan);
+  Heget.create = function(spec) {
+    return new Heget(spec);
   };
 
   var report = '';
