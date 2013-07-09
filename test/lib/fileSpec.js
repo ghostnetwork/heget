@@ -6,7 +6,7 @@ var File = require('../../lib/file');
 
 describe('File', function(){
 
-  var fileToRead = 'bin/spec.json';
+  var fileToRead = 'bin/settings.json';
 
   it('should be able to be loaded', function(){
     assert(File !== null);

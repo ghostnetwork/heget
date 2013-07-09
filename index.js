@@ -12,11 +12,11 @@ var parser = require('xml2js').parseString;
     this.pathToScan = pathToScan;
 
     var reportDirectory = spec.reportDirectory;
-    console.log('reportDirectory: ' + reportDirectory);
 
     this.scan = function() {
       var self = this;
       console.log('scanning ' + this.pathToScan);
+      console.log('reportDirectory: ' + reportDirectory);
 
       verifyPathExists(pathToScan, function() {
         scanDirectory(pathToScan, function(files) {
