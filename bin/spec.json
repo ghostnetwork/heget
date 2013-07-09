@@ -1,0 +1,12 @@
+{ 
+  "osx": 
+  {
+    "snippetsDirectory": "/Users/Hawk/SkyDrive/data/Sublime Text 2/Packages/User",
+    "reportDirectory": "/Users/Hawk/SkyDrive/data/Sublime Text 2/" 
+  },
+  "windows": 
+  {
+    "snippetsDirectory": "/Users/Hawk/SkyDrive/data/Sublime Text 2/Packages/User",
+    "reportDirectory": "/Users/Hawk/SkyDrive/data/Sublime Text 2/" 
+  }
+}

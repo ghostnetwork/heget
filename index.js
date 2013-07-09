@@ -7,8 +7,12 @@ var util = require('util');
 var parser = require('xml2js').parseString;
 
 (function() {
-  function Heget(pathToScan) {
+  function Heget(spec) {
+    var pathToScan = spec.snippetsDirectory;
     this.pathToScan = pathToScan;
+
+    var reportDirectory = spec.reportDirectory;
+    console.log('reportDirectory: ' + reportDirectory);
 
     this.scan = function() {
       var self = this;
@@ -18,7 +22,7 @@ var parser = require('xml2js').parseString;
         scanDirectory(pathToScan, function(files) {
           filterListOfFilesForSnippets(files, function(result) {
             processFiles(pathToScan, result, function() {
-              writeReport(function() {
+              writeReport(reportDirectory, function() {
                 console.log('done');
               });
             });
@@ -111,8 +115,9 @@ var parser = require('xml2js').parseString;
     report = report + result;
   };
 
-  function writeReport(action) {
-    fs.writeFile(reportFile, report, 'utf-8', function(error) {
+  function writeReport(reportDirectory, action) {
+    var reportPath = reportDirectory + reportFile;
+    fs.writeFile(reportPath, report, 'utf-8', function(error) {
       if (error) throw error;
       action();
     });
@@ -123,7 +128,7 @@ var parser = require('xml2js').parseString;
   };
 
   var report = '';
-  var reportFile = 'st2-snippets.txt';
+  var reportFile = 'snippets.txt';
   var snippetExtension = '.sublime-snippet';
 
   module.exports = Heget;
