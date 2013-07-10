@@ -7,7 +7,8 @@
     "test": "mocha --recursive test"
   },
   "dependencies": {
-    "util": "0.4.9"
+    "util": "0.4.9",
+    "xml2js": "0.2.8"
   },
   "author": "@codeswimmer",
   "license": "MIT"
