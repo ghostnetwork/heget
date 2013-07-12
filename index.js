@@ -1,10 +1,10 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
-var path = require('path');
-var util = require('util');
 var parser = require('xml2js').parseString;
+var path = require('path');
+var q = require('q');
+var util = require('util');
 
 (function() {
   function Heget(spec) {
@@ -17,7 +17,13 @@ var parser = require('xml2js').parseString;
       var self = this;
       console.log('scanning ' + this.pathToScan);
       console.log('reportDirectory: ' + reportDirectory);
+      var files = [];
 
+      q.fcall(verifyPathExists(pathToScan))
+        .then(scanDirectory(pathToScan, files));/*
+        .then(filterListOfFilesForSnippets(files));*/
+      console.log('files: ' + util.inspect(files));
+      /*
       verifyPathExists(pathToScan, function() {
         scanDirectory(pathToScan, function(files) {
           filterListOfFilesForSnippets(files, function(result) {
@@ -29,29 +35,31 @@ var parser = require('xml2js').parseString;
           });
         });
       });
+      */
     };
   };
 
-  function verifyPathExists(pathToScan, action) {
+  function verifyPathExists(pathToScan) {
     fs.exists(pathToScan, function(exists) {
-      if (exists) {
-        action();
-      } 
-      else {
+      if (!exists) {
         throw new Error(pathToScan + ' does not exist');
       };
     });
   };
 
-  function scanDirectory(pathToScan, action) {
-    fs.readdir(pathToScan, function(error, files) {
+  function scanDirectory(pathToScan, files) {
+    fs.readdir(pathToScan, function(error, theFiles) {
       if (error) throw error;
-      action(files);
+      theFiles.forEach(function(name) {
+        files.push(name);
+      });
+      return files;
     });
   };
 
-  function filterListOfFilesForSnippets(files, resultHandler) {
+  function filterListOfFilesForSnippets(files) {
     var toBeRemoved = [];
+
     files.forEach(function(name) {
       var extension = path.extname(name);
       if (extension !== snippetExtension)
@@ -66,9 +74,10 @@ var parser = require('xml2js').parseString;
       }
     };
 
-    resultHandler(files);
+    return files;
   }
 
+  /*
   function processFiles(folder, files, action) {
     var numFiles = files.length - 1;
     var counter = 0;
@@ -122,6 +131,7 @@ var parser = require('xml2js').parseString;
       action();
     });
   }
+  */
 
   Heget.create = function(spec) {
     return new Heget(spec);

@@ -1,5 +1,5 @@
 {
-  "name": "Heget",
+  "name": "heget",
   "version": "0.1.0",
   "description": "fog of war",
   "main": "index.js",
@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "util": "0.4.9",
-    "xml2js": "0.2.8"
+    "xml2js": "0.2.8",
+    "q": "0.9.6"
   },
   "author": "@codeswimmer",
   "license": "MIT"
