@@ -6,6 +6,11 @@
       "snippetsDirectory": "/Users/Hawk/SkyDrive/data/Sublime Text 2/Packages/User",
       "reportDirectory": "/Users/Hawk/SkyDrive/data/Sublime Text 2/" 
     },
+    "linux": 
+    {
+      "snippetsDirectory": "/home/keermel/data/sublime_text_settings/Packages/User",
+      "reportDirectory": "/home/keermel/data/sublime_text_settings" 
+    },
     "windows": 
     {
       "snippetsDirectory": "C:/Users/keermel/AppData/Roaming/sublime_text_settings/Packages/User",
