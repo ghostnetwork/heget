@@ -3,7 +3,7 @@
 var fs = require('fs');
 var parser = require('xml2js').parseString;
 var path = require('path');
-var q = require('q');
+var Q = require('q');
 var util = require('util');
 
 (function() {
@@ -15,14 +15,17 @@ var util = require('util');
 
     this.scan = function() {
       var self = this;
-      console.log('scanning ' + this.pathToScan);
-      console.log('reportDirectory: ' + reportDirectory);
-      var files = [];
+      // console.log('scanning ' + this.pathToScan);
+      // console.log('reportDirectory: ' + reportDirectory);
 
-      q.fcall(verifyPathExists(pathToScan))
-        .then(scanDirectory(pathToScan, files));/*
-        .then(filterListOfFilesForSnippets(files));*/
-      console.log('files: ' + util.inspect(files));
+      var result = Q.fcall(verifyPathExists(pathToScan));/*
+        .then(function(exists) {
+          console.log('exists: ' + exists);
+        });*/
+      console.log('result: ' + util.inspect(result));
+      result.then(function(exists) {
+        console.log('exists: ' + exists);
+      });
       /*
       verifyPathExists(pathToScan, function() {
         scanDirectory(pathToScan, function(files) {
@@ -40,20 +43,21 @@ var util = require('util');
   };
 
   function verifyPathExists(pathToScan) {
+    var deferred = Q.defer();
+
     fs.exists(pathToScan, function(exists) {
-      if (!exists) {
-        throw new Error(pathToScan + ' does not exist');
-      };
-    });
+      deferred.resolve(exists);
+    });l
+
+    return deferred.promise;
   };
 
-  function scanDirectory(pathToScan, files) {
-    fs.readdir(pathToScan, function(error, theFiles) {
+  function scanDirectory(pathToScan) {
+    fs.readdir(pathToScan, function(error, files) {
+      var deferred = Q.defer();
       if (error) throw error;
-      theFiles.forEach(function(name) {
-        files.push(name);
-      });
-      return files;
+      deferred.resolve(files);
+      return deferred;
     });
   };
 
